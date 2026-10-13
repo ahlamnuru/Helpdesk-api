@@ -1,0 +1,6 @@
+{
+  "default": {
+    "string": "env:DATABASE_URL",
+    "driver": "pg"
+  }
+}

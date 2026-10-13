@@ -1,0 +1,18 @@
+# dependencies
+node_modules/
+
+# secrets (never commit these)
+.env .env.*
+!.env.example
+
+# logs
+logs/ *.log npm-debug.log* yarn-debug.log* yarn-error.log* pnpm-debug.log*
+
+# build and test output
+dist/ build/ coverage/ .nyc_output/ tmp/ .cache/
+
+# uploads and local data
+uploads/ *.sqlite *.db
+
+# OS and editor files
+.DS_Store Thumbs.db .vscode/ .idea/ *.swp *.tgz
