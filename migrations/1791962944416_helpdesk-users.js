@@ -16,13 +16,14 @@ export const up = (pgm) => {
       default: pgm.func("gen_random_uuid()"),
     },
     fullname: {
-      type: "varchra(100)",
+      type: "varchar(100)",
       notNull: true,
     },
     email: {
       type: "varchar(100)",
       unique: true,
       notNull: true,
+      index: true,
     },
     password: {
       type: "varchar(255)",
@@ -30,7 +31,11 @@ export const up = (pgm) => {
     },
     role: {
       type: "varchar(10)",
-      default: "user",
+      default: "customer",
+    },
+    is_active: {
+      type: "boolean",
+      default: true,
     },
     created_at: {
       type: "timestamp",
