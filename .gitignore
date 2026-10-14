@@ -4,6 +4,8 @@ node_modules/
 # secrets (never commit these)
 .env .env.*
 !.env.example
+.env
+.gitignore
 
 # logs
 logs/ *.log npm-debug.log* yarn-debug.log* yarn-error.log* pnpm-debug.log*
