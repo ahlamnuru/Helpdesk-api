@@ -33,13 +33,15 @@ export const up = (pgm) => {
     },
     customer_id: {
       type: "uuid",
-      references: "helpdesk_users(id)",
+      references: '"helpdesk_users"(id)',
+      onDelete: "CASCADE",
       notNull: true,
       index: true,
     },
     assigned_id: {
       type: "uuid",
-      references: "helpdesk_users(id)",
+      references: '"helpdesk_users"(id)',
+      onDelete: "SET NULL",
       index: true,
     },
     created_at: {

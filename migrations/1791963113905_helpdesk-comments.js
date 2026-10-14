@@ -18,12 +18,14 @@ export const up = (pgm) => {
     },
     ticket_id: {
       type: "uuid",
-      references: "helpdesk_tickets(id)",
+      references: '"helpdesk_tickets"(id)',
+      onDelete: "CASCADE",
       notNull: true,
     },
     author_id: {
       type: "uuid",
-      references: "helpdesk_users(id)",
+      references: '"helpdesk_users"(id)',
+      onDelete: "CASCADE",
       notNull: true,
     },
     body: {
