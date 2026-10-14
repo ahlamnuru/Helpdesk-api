@@ -121,3 +121,4 @@ Build database storage for users, tickets, and comments using node-pg-migration 
 20. Cascade deletion removes all ticket-dependent data, including comments and other related items, using the ticket model.
 21. Delete users and mke users inactive using conriler and user models also cascade terminations
 ```
+the end
