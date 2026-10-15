@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
-const { hashPassword } = require("../utils/password");
+const { hashPassword, comparePassword } = require("../utils/password");
 const { insertUser, findOne } = require("../models/user.model");
+const { signToken, cookieOptions } = require("../utils/token");
 
 module.exports.register = async (req, res, next) => {
   try {
