@@ -18,9 +18,5 @@ authRouter.post(
   register,
 );
 
-authRouter.post(
-  "/login", 
-  emailValidations, 
-  passwordValidators, 
-  login,
-);
+authRouter.post("/login", emailValidations, passwordValidators, login);
+module.exports = authRouter;
