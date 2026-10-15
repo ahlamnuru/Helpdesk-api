@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
 const { hashPassword } = require("../utils/password");
-const { insertUser } = require("../models/user.model");
+const { insertUser, findOne } = require("../models/user.model");
 const { signToken, cookieOptions } = require("../utils/token");
 const { comparePassword } = require("../utils/password");
 
