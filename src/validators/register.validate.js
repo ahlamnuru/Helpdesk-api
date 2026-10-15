@@ -14,7 +14,7 @@ const nameValidators = [
     .trim()
     .notEmpty()
     .withMessage("The Name filed cannot be empty")
-    .isAlpha("en-US", {ignore: " "})
+    .isAlpha("en-US", { ignore: " " })
     .withMessage("Only aplhabetic letters are allowed for this filed")
     .escape(),
 ];

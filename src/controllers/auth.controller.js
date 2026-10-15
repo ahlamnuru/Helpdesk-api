@@ -56,7 +56,6 @@ module.exports.login = async (req, res, next) => {
       token,
       user,
     });
-
   } catch (error) {
     next(error);
   }
