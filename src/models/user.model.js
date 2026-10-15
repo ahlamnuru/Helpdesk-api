@@ -14,3 +14,4 @@ module.exports.insertUser = async (user) => {
   );
   return rows[0];
 };
+
