@@ -22,7 +22,14 @@ app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
 app.use(passport.initialize());
-app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 100, standardHeaders: true, legacyHeaders: false }));
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+  }),
+);
 app.use("/api", routes);
 app.use(notFound);
 app.use(errorHandler);
