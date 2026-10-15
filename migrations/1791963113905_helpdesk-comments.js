@@ -15,6 +15,7 @@ export const up = (pgm) => {
     id: {
       type: "uuid",
       default: pgm.func("gen_random_uuid()"),
+      primaryKey: true,
     },
     ticket_id: {
       type: "uuid",

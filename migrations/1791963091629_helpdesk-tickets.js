@@ -13,6 +13,7 @@ export const up = (pgm) => {
     id: {
       type: "uuid",
       default: pgm.func("gen_random_uuid()"),
+      primaryKey: true,
     },
     title: {
       type: "varchar(100)",
