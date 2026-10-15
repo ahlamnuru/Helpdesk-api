@@ -12,5 +12,5 @@ module.exports.insertUser = async (user) => {
     "insert into helpdesk_users (fullname,email,password) values ($1,$2,$3) returning *",
     user,
   );
-  return;
+  return rows[0];
 };
