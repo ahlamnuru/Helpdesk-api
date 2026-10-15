@@ -5,7 +5,7 @@ const {
   passwordValidators,
   confirmPasswordValidators,
 } = require("../validators/register.validate");
-const { register } = require("../controllers/auth.controller");
+const { register, login } = require("../controllers/auth.controller");
 const authRouter = express.Router();
 
 //
@@ -16,4 +16,11 @@ authRouter.post(
   passwordValidators,
   confirmPasswordValidators,
   register,
+);
+
+authRouter.post(
+  "/login", 
+  emailValidations, 
+  passwordValidators, 
+  login,
 );
