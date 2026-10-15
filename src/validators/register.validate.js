@@ -10,18 +10,18 @@ const emailValidations = [
     .normalizeEmail(),
 ];
 const nameValidators = [
-  body("name")
+  body("fullname")
     .trim()
     .notEmpty()
     .withMessage("The Name filed cannot be empty")
-    .isAlpha("en-US", " ")
+    .isAlpha("en-US", {ignore: " "})
     .withMessage("Only aplhabetic letters are allowed for this filed")
     .escape(),
 ];
 const passwordValidators = [
   body("password")
     .trim()
-    .isLength({ min: 8, max: 25 })
+    .isLength({ min: 4, max: 25 })
     .withMessage("The password length must be bettwen 8 and 25 "),
 ];
 const confirmPasswordValidators = [

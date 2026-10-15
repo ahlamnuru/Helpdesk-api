@@ -14,7 +14,7 @@ module.exports.register = async (req, res, next) => {
     // find the user if exist from the user model
     const userexist = await findOne(email);
     if (userexist) {
-      return req.json({ message: "Email already in use" });
+      return res.json({ message: "Email already in use" });
     }
     // otehr wise teh user can regester
     //let use hase the password
