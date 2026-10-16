@@ -119,6 +119,6 @@ Build database storage for users, tickets, and comments using node-pg-migration 
 18. The admin router communicates with the ticket controller and retrieves all tickets with their authors and assigned agents using the models. If an agent is assigned, include that agent; otherwise, assign an agent using the controller.
 19. The `/tickets/delete/:id` route handles ticket deletion by communicating with the ticet model.
 20. Cascade deletion removes all ticket-dependent data, including comments and other related items, using the ticket model.
-21. Delete users and mke users inactive using conriler and user models also cascade terminations
+21. Delete users and mke users inactive using controller and user models also cascade terminations
 ```
 the end
