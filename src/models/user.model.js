@@ -14,4 +14,10 @@ module.exports.insertUser = async (user) => {
   );
   return rows[0];
 };
-
+module.exports.insertagentfromAdmin = async (user) => {
+  const {rows} = await pool.query(
+    "insert into helpdesk_users (fullname,email,password,role) values ($1,$2,$3,$4) returning *",
+    user
+  );
+  return rows[0]; 
+}

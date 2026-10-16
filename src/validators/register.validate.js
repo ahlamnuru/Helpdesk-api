@@ -38,10 +38,18 @@ const confirmPasswordValidators = [
       return true;
     }),
 ];
-
+const roleValidators = [
+  body("role")
+    .trim()
+    .notEmpty()
+    .withMessage("The role field cannot be empty")
+    .isIn(["admin", "agent", "customer"])
+    .withMessage("The role must be either admin, agent, or customer"),
+];
 module.exports = {
   emailValidations,
   nameValidators,
   passwordValidators,
   confirmPasswordValidators,
+  roleValidators,
 };
