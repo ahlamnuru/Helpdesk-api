@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-module.exports.grabAlltickets = async (params) => {
+module.exports.grabAlltickets = async () => {
   const { rows } = await pool.query("select * from helpdesk_tickets");
   return rows;
 };
