@@ -11,9 +11,7 @@ export const shorthands = undefined;
 export const up = (pgm) => {
   pgm.createTable("helpdesk_tickets", {
     id: {
-      type: "uuid",
-      default: pgm.func("gen_random_uuid()"),
-      primaryKey: true,
+      type: "id",
     },
     title: {
       type: "varchar(100)",
