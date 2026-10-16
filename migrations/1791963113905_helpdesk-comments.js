@@ -17,6 +17,7 @@ export const up = (pgm) => {
     },
     ticket_id: {
       type: "id",
+      references: '"helpdesk_tickets"(id)',
       onDelete: "CASCADE",
       notNull: true,
     },
