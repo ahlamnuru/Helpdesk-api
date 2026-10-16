@@ -8,7 +8,7 @@ module.exports.attachComments = async (tickets) => {
     await Promise.all(
       tickets.map(async (element) => {
         const comment = await grabAllcomments(element.id);
-        element.comments = comment;
+        element.comments = comment || [];
       }),
     );
     return tickets;
