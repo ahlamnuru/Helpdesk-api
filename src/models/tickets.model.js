@@ -1,6 +1,6 @@
 const pool = require("../config/db");
 
-module.exports.grabAlltickets = async (params) => {
+module.exports.grabAlltickets = async () => {
   const { rows } = await pool.query("select * from helpdesk_tickets");
   return rows;
 };
@@ -11,4 +11,11 @@ module.exports.grabMytickets = async (id) => {
     id,
   );
   return rows;
+};
+module.exports.createTickets = async (ticketData) => {
+  const { rows } = await pool.query(
+    "insert into helpdesk_tickets (title, description, priority, customer_id) values ($1, $2, $3, $4) returning *",
+    ticketData,
+  );
+  return rows[0];
 };

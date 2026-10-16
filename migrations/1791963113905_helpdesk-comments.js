@@ -13,12 +13,10 @@ export const shorthands = undefined;
 export const up = (pgm) => {
   pgm.createTable("helpdesk_comments", {
     id: {
-      type: "uuid",
-      default: pgm.func("gen_random_uuid()"),
-      primaryKey: true,
+      type: "id"
     },
     ticket_id: {
-      type: "uuid",
+      type: "id",
       references: '"helpdesk_tickets"(id)',
       onDelete: "CASCADE",
       notNull: true,
