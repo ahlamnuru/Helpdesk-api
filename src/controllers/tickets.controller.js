@@ -6,7 +6,8 @@ const {
   assignTicket,
   removeTicket,
 } = require("../models/tickets.model");
-const { attachComments, writeComment } = require("../utils/attach.comments");
+const { attachComments } = require("../utils/attach.comments");
+const { insertComment } = require("../models/comments.model");
 
 module.exports.getAllTickets = async (req, res, next) => {
   try {
@@ -87,7 +88,7 @@ module.exports.writeComment = async (req, res, next) => {
     }
     const { ticket_id, body } = req.body;
     const user_id = req.user.id;
-    const ticket = await writeComment([ticket_id, user_id, body]);
+    const ticket = await insertComment([ticket_id, user_id, body]);
     res.json(ticket);
   } catch (error) {
     next(error);
