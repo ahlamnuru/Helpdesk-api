@@ -2,6 +2,7 @@ const { Router } = require("express");
 const { authenticate } = require("../middlewares/auth");
 const authRouter = require("./auth.route");
 const ticketRouter = require("./tickets.routes");
+const adminRouter = require("./admin.route");
 
 const router = Router();
 

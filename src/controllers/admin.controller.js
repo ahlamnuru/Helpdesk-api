@@ -1,11 +1,11 @@
-const { validate } = require("express-validation");
 const { hashPassword } = require("../utils/password");
 const { insertUser } = require("../models/user.model");
-const { getAllTickets } = require("./tickets.controller");
+const { validationResult } = require("express-validator");
+
 
 module.exports.adminregistration = async (req, res, next) => {
   try {
-    const errors = validate(req);
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const errorsArray = errors.array();
       return res.json({ message: errorsArray.map((er) => er.msg) });
