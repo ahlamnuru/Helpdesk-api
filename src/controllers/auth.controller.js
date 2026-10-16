@@ -16,7 +16,7 @@ module.exports.register = async (req, res, next) => {
     if (userexist) {
       return res.json({ message: "Email already in use" });
     }
-    // otehr wise teh user can regester
+    // other wise the user can regester
     //let use hase the password
     const hassedPssword = await hashPassword(password);
 
