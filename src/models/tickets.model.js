@@ -12,3 +12,10 @@ module.exports.grabMytickets = async (id) => {
   );
   return rows;
 };
+module.exports.createTickets = async (ticketData) => {
+  const { rows } = await pool.query(
+    "insert into helpdesk_tickets (title, description, priority, customer_id) values ($1, $2, $3, $4) returning *",
+    ticketData,
+  );
+  return rows[0];
+};
