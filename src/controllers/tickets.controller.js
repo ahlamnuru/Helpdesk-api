@@ -3,6 +3,7 @@ const {
   grabAlltickets,
   grabMytickets,
   createTickets,
+  assignTicket,
 } = require("../models/tickets.model");
 const { attachComments } = require("../utils/attach.comments");
 
@@ -47,5 +48,25 @@ module.exports.createTicket = async (req, res, next) => {
     return res.json(ticket);
   } catch (err) {
     next(err);
+  }
+};
+
+module.exports.assignAgent = async (req, res, next) => {
+  const user = req.user;
+  const result = "";
+  try {
+    if (user.role === "admin") {
+      const { agentid, ticketid } = req.body;
+      result = await assignTicket([agentid, ticketid]);
+    } else {
+      // is we are assing self
+      const { id } = req.params;
+      result = await assignTicket([user.id, id]);
+    }
+    res.json({
+      message: `agnet  have been assinged to the  task ${result.title}`,
+    });
+  } catch (error) {
+    next(error);
   }
 };

@@ -19,3 +19,11 @@ module.exports.createTickets = async (ticketData) => {
   );
   return rows[0];
 };
+
+module.exports.assignTicket = async (querydata) => {
+  const { rows } = await pool.query(
+    "update table helpdesk_tickets set assigned_id = $1 where id = $2 returning title",
+    querydata,
+  );
+  return rows[0];
+};
