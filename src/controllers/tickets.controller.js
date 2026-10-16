@@ -5,7 +5,7 @@ const {
   createTickets,
   assignTicket,
 } = require("../models/tickets.model");
-const { attachComments } = require("../utils/attach.comments");
+const { attachComments, writeComment } = require("../utils/attach.comments");
 
 module.exports.getAllTickets = async (req, res, next) => {
   try {
@@ -67,6 +67,22 @@ module.exports.assignAgent = async (req, res, next) => {
     res.json({
       message: `agnet  have been assinged to the  task ${result.title}`,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.writeComment = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const errorsArray = errors.array();
+      return res.json({ message: errorsArray.map((er) => er.msg) });
+    }
+    const {ticket_id, body} = req.body;
+    const user_id = req.user.id;
+    const ticket = await writeComment([ticket_id, user_id, body]);
+    res.json(ticket);
   } catch (error) {
     next(error);
   }

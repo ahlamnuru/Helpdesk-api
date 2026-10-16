@@ -16,8 +16,15 @@ const commentValidators = [
   .notEmpty()
   .withMessage("The description can not be empty")
 ]
+const singlecommentValidator = [
+  body("body")
+  .trim()
+  .notEmpty()
+  .withMessage("The comment body cannot be empty")
+]
 
 module.exports = {
   ticketValidators,
-  commentValidators
+  commentValidators,
+  singlecommentValidator
 }
