@@ -1,7 +1,6 @@
 const { hashPassword } = require("../utils/password");
-const { insertUser } = require("../models/user.model");
+const { insertagentfromAdmin, findOne } = require("../models/user.model");
 const { validationResult } = require("express-validator");
-
 
 module.exports.adminregistration = async (req, res, next) => {
   try {
@@ -12,13 +11,18 @@ module.exports.adminregistration = async (req, res, next) => {
     }
     const { email, password, fullname, role } = req.body;
     const agentexist = await findOne(email);
-    
+
     if (agentexist) {
       return res.json({ message: "Email already in use" });
     }
     const hassedPssword = await hashPassword(password);
 
-    const result = await insertUser([fullname, email, hassedPssword, role]);
+    const result = await insertagentfromAdmin([
+      fullname,
+      email,
+      hassedPssword,
+      role,
+    ]);
     res.json({
       message: `Hello ${result.fullname} agent account created successfully`,
     });

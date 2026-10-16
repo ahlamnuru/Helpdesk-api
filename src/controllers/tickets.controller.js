@@ -53,7 +53,7 @@ module.exports.createTicket = async (req, res, next) => {
 
 module.exports.assignAgent = async (req, res, next) => {
   const user = req.user;
-  const result = "";
+  let result = "";
   try {
     if (user.role === "admin") {
       const { agentid, ticketid } = req.body;
@@ -61,6 +61,7 @@ module.exports.assignAgent = async (req, res, next) => {
     } else {
       // is we are assing self
       const { id } = req.params;
+
       result = await assignTicket([user.id, id]);
     }
     res.json({
