@@ -1,7 +1,7 @@
 const pool = require("../config/db");
 
 module.exports.grabAllcomments = async (id) => {
-  const { rows } = pool.query(
+  const { rows } = await pool.query(
     "select * from helpdesk_comments where ticket_id = $1 ",
     [id],
   );

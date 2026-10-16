@@ -1,3 +1,4 @@
+const { query } = require("express-validator");
 const pool = require("../config/db");
 
 module.exports.grabAlltickets = async () => {
@@ -27,4 +28,8 @@ module.exports.assignTicket = async (querydata) => {
   );
   console.log(rows);
   return rows[0];
+};
+module.exports.removeTicket = async (id) => {
+  await pool.query("DELETE  FROM  helpdesk_tickets where id = $1 ", id);
+  return true;
 };

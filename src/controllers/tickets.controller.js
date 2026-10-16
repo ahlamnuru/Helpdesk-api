@@ -4,6 +4,7 @@ const {
   grabMytickets,
   createTickets,
   assignTicket,
+  removeTicket,
 } = require("../models/tickets.model");
 const { attachComments } = require("../utils/attach.comments");
 
@@ -57,6 +58,11 @@ module.exports.assignAgent = async (req, res, next) => {
   try {
     if (user.role === "admin") {
       const { agentid, ticketid } = req.body;
+      if (!agentid || !ticketid) {
+        return res
+          .status(400)
+          .json({ message: "Error the ticket id is required" });
+      }
       result = await assignTicket([agentid, ticketid]);
     } else {
       // is we are assing self
@@ -67,6 +73,21 @@ module.exports.assignAgent = async (req, res, next) => {
     res.json({
       message: `agnet  have been assinged to the  task ${result.title}`,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.deleteTicket = async (req, res, next) => {
+  try {
+    const { ticketid } = req.body;
+    if (!ticketid) {
+      return res
+        .status(400)
+        .json({ message: "Error the ticket id is required" });
+    }
+    // else we can delete it
+    const result = await removeTicket([ticketid]);
+    res.json({ message: "Ticket removal status :" + result });
   } catch (error) {
     next(error);
   }
