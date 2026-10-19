@@ -7,6 +7,7 @@ const {
   assignAgent,
   writeComment,
   deleteTicket,
+  changeStatus,
 } = require("../controllers/tickets.controller");
 const ticketRouter = express.Router();
 

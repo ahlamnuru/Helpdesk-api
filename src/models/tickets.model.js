@@ -33,5 +33,19 @@ module.exports.removeTicket = async (id) => {
   await pool.query("DELETE  FROM  helpdesk_tickets where id = $1 ", id);
   return true;
 };
-module.exports.pickOneById = async (ticketId) => {};
-module.exports.updateStatus = async (params) => {};
+module.exports.pickOneById = async (ticketId) => {
+  const { rows } = pool.query(
+    `SELECT * FROM helpdesk_tickets where id = $1`,
+    ticketId,
+  );
+  return rows[0];
+};
+module.exports.updateStatus = async (ticketId, newStatus) => {
+  const { rows } = await pool.query(
+    `update helpdesk_tickets
+     set status = $1 , updated_at = now()
+     where id =$2 returning status`,
+    [newStatus, ticketId],
+  );
+  return rows[0];
+};
