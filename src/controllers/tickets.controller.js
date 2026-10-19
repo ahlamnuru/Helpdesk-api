@@ -5,9 +5,12 @@ const {
   createTickets,
   assignTicket,
   removeTicket,
+  pickOneById,
 } = require("../models/tickets.model");
 const { attachComments } = require("../utils/attach.comments");
 const { insertComment } = require("../models/comments.model");
+const { canseeTckets } = require("../utils/cansee.tcikets");
+const { TRANSITIONS } = require("../config/transition");
 
 module.exports.getAllTickets = async (req, res, next) => {
   try {
@@ -109,4 +112,23 @@ module.exports.deleteTicket = async (req, res, next) => {
     next(error);
   }
 };
-module.exports.changeStatus = async (req, res, next) => {};
+module.exports.changeStatus = async (req, res, next) => {
+  try {
+    // firsr let us chek if the currunt user is allwed to cnage some infor on currun ticket
+    const { ticketid, newStatus } = req.body;
+
+    const curruntTicket = await pickOneById(ticketid);
+
+    const isAllowed = canseeTckets(req.user, curruntTicket);
+    if (!isAllowed) {
+      throw new Error("Error Ticket not found");
+    }
+    const isstastusallowed = TRANSITIONS[curruntTicket.status][newStatus];
+    if (!isstastusallowed || !isstastusallowed.includes(req.user.role)) {
+      throw new Error("Error Ticket cannot be cnahged  ");
+    }
+    // cnage sttaus loging using user model and also write the event data
+  } catch (error) {
+    next(error);
+  }
+};
