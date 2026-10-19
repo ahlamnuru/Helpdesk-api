@@ -1,3 +1,5 @@
+const pool = require("../config/db");
+
 module.exports.insertEventData = async (datas) => {
   const { ticketId, userId, userRole, fromStatus, toStatus } = datas;
   const { rows } = await pool.query(
