@@ -6,11 +6,13 @@ const {
   assignTicket,
   removeTicket,
   pickOneById,
+  updateStatus,
 } = require("../models/tickets.model");
 const { attachComments } = require("../utils/attach.comments");
 const { insertComment } = require("../models/comments.model");
 const { canseeTckets } = require("../utils/cansee.tcikets");
 const { TRANSITIONS } = require("../config/transition");
+const { insertEventData } = require("../models/evnt.model");
 
 module.exports.getAllTickets = async (req, res, next) => {
   try {
@@ -117,17 +119,27 @@ module.exports.changeStatus = async (req, res, next) => {
     // firsr let us chek if the currunt user is allwed to cnage some infor on currun ticket
     const { ticketid, newStatus } = req.body;
 
-    const curruntTicket = await pickOneById(ticketid);
+    const curruntTicket = await pickOneById([ticketid]);
 
-    const isAllowed = canseeTckets(req.user, curruntTicket);
-    if (!isAllowed) {
+    if (!curruntTicket || !canseeTckets(req.user, curruntTicket)) {
       throw new Error("Error Ticket not found");
     }
     const isstastusallowed = TRANSITIONS[curruntTicket.status][newStatus];
     if (!isstastusallowed || !isstastusallowed.includes(req.user.role)) {
-      throw new Error("Error Ticket cannot be cnahged  ");
+      throw new Error("Error Ticket cannot be cnahged ");
     }
     // cnage sttaus loging using user model and also write the event data
+    const status = await updateStatus(ticketid, newStatus);
+    const event_data = await insertEventData(
+      ticketid,
+      req.user.id,
+      curruntTicket.status,
+      newStatus,
+    );
+    res.json({
+      message: `The ticket have ben vahneged from ${status.status} to ${newStatus} and stored event data  `,
+      event_data,
+    });
   } catch (error) {
     next(error);
   }
