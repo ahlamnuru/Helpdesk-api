@@ -15,9 +15,16 @@ module.exports.insertUser = async (user) => {
   return rows[0];
 };
 module.exports.insertagentfromAdmin = async (user) => {
-  const {rows} = await pool.query(
+  const { rows } = await pool.query(
     "insert into helpdesk_users (fullname,email,password,role) values ($1,$2,$3,$4) returning *",
-    user
+    user,
   );
-  return rows[0]; 
-}
+  return rows[0];
+};
+module.exports.deactivate = async (email, status) => {
+  const { rows } = await pool.query(
+    " update helpdesk_users set is_active =$1 where email = $2 returning is_active",
+    [status, email],
+  );
+  return rows[0];
+};

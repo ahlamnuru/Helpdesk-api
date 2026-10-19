@@ -34,11 +34,7 @@ module.exports.removeTicket = async (id) => {
   return true;
 };
 module.exports.pickOneById = async (ticketId) => {
-<<<<<<< HEAD
-  const { rows } =await pool.query(
-=======
   const { rows } = await pool.query(
->>>>>>> origin
     `SELECT * FROM helpdesk_tickets where id = $1`,
     ticketId,
   );

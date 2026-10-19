@@ -47,7 +47,9 @@ module.exports.login = async (req, res, next) => {
         message: "Invalid email or password",
       });
     }
-
+    if (!user.is_active) {
+      return res.json({ message: "Accoutn Banned Contact the system admin" });
+    }
     const token = await signToken(user);
     res.cookie("token", token, cookieOptions);
     return res.json({
