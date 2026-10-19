@@ -9,34 +9,36 @@ export const shorthands = undefined;
  * @returns {Promise<void> | void}
  */
 export const up = (pgm) => {
-  pgm.createTable("ticket_events", {
+  pgm.createTable("ticket_status", {
     id: {
       type: "id",
     },
     ticket_id: {
       type: "id",
       references: '"helpdesk_tickets"(id)',
-      onDelete: "NO ACTION",
+      onDelete: "CASCADE",
+      notNull: true,
+      index: true,
     },
-    actor_id: {
+    user_id: {
       type: "uuid",
       references: '"helpdesk_users"(id)',
-      onDelete: "NO ACTION",
+      onDelete: "SET NULL",
       notNull: true,
     },
-    type: {
-      type: "varchar(100)",
+    user_role: {
+      type: "varchar(50)",
       notNull: true,
     },
-    from_value: {
-      type: "varchar(100)",
+    from_status: {
+      type: "varchar(15)",
       notNull: true,
     },
-    to_value: {
-      type: "varchar(100)",
+    to_status: {
+      type: "varchar(15)",
       notNull: true,
     },
-    issue_Date: {
+    created_at: {
       type: "timestamp",
       default: pgm.func("current_timestamp"),
     },
@@ -48,4 +50,6 @@ export const up = (pgm) => {
  * @param run {() => void | undefined}
  * @returns {Promise<void> | void}
  */
-export const down = (pgm) => {};
+export const down = (pgm) => {
+  pgm.dropTable("ticket_status_events");
+};

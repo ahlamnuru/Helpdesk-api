@@ -6,7 +6,7 @@ const {
   assignTicket,
   removeTicket,
   pickOneById,
-  updateStatus,
+  updateStatues,
 } = require("../models/tickets.model");
 const { attachComments } = require("../utils/attach.comments");
 const { insertComment } = require("../models/comments.model");
@@ -129,16 +129,23 @@ module.exports.changeStatus = async (req, res, next) => {
       throw new Error("Error Ticket cannot be cnahged ");
     }
     // cnage sttaus loging using user model and also write the event data
-    const status = await updateStatus(ticketid, newStatus);
-    const event_data = await insertEventData(
-      ticketid,
-      req.user.id,
-      curruntTicket.status,
-      newStatus,
-    );
-    res.json({
-      message: `The ticket have ben vahneged from ${status.status} to ${newStatus} and stored event data  `,
-      event_data,
+
+    const updatedTicket = await updateStatues({
+      status: newStatus,
+      id: ticketid,
+    });
+
+    const data = await logStatusEvents({
+      ticketId: ticketid,
+      userId: req.user.id,
+      userRole: req.user.role,
+      fromStatus: curruntTicket.status,
+      toStatus: newStatus,
+    });
+
+    return res.json({
+      ticket: updatedTicket,
+      event: data,
     });
   } catch (error) {
     next(error);
