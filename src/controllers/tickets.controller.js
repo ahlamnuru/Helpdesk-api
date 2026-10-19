@@ -109,3 +109,4 @@ module.exports.deleteTicket = async (req, res, next) => {
     next(error);
   }
 };
+module.exports.changeStatus = async (req, res, next) => {};

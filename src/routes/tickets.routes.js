@@ -16,4 +16,5 @@ ticketRouter.post("/new", requireRole("customer"), createTicket);
 ticketRouter.post("/:id/assingn", requireRole("admin", "agent"), assignAgent);
 ticketRouter.post("/:id/comments", writeComment);
 ticketRouter.delete("/:id/delete", requireRole("admin"), deleteTicket);
+ticketRouter.post("/:id/change_status", changeStatus);
 module.exports = ticketRouter;

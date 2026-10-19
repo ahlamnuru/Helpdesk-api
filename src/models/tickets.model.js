@@ -33,3 +33,5 @@ module.exports.removeTicket = async (id) => {
   await pool.query("DELETE  FROM  helpdesk_tickets where id = $1 ", id);
   return true;
 };
+module.exports.pickOne = async (ticketId) => {};
+module.exports.userOragent = async (userId) => {};
