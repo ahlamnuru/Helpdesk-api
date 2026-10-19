@@ -12,6 +12,7 @@ const { attachComments } = require("../utils/attach.comments");
 const { insertComment } = require("../models/comments.model");
 const { canseeTckets } = require("../utils/cansee.tcikets");
 const { TRANSITIONS } = require("../config/transition");
+const { insertEventData } = require("../models/evnt.model");
 
 module.exports.getAllTickets = async (req, res, next) => {
   try {
@@ -135,7 +136,7 @@ module.exports.changeStatus = async (req, res, next) => {
       id: ticketid,
     });
 
-    const data = await logStatusEvents({
+    const data = await insertEventData({
       ticketId: ticketid,
       userId: req.user.id,
       userRole: req.user.role,
