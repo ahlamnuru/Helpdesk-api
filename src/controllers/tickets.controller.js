@@ -122,11 +122,13 @@ module.exports.changeStatus = async (req, res, next) => {
     const curruntTicket = await pickOneById([ticketid]);
 
     if (!curruntTicket || !canseeTckets(req.user, curruntTicket)) {
-      throw new Error("Error Ticket not found");
+      return res.json({
+        message: "Erros tehessage is not found or it doest belog to you ",
+      });
     }
     const isstastusallowed = TRANSITIONS[curruntTicket.status][newStatus];
     if (!isstastusallowed || !isstastusallowed.includes(req.user.role)) {
-      throw new Error("Error Ticket cannot be cnahged ");
+      return res.status(400).json({ message: "Invalid status to thicket" });
     }
     // cnage sttaus loging using user model and also write the event data
 
