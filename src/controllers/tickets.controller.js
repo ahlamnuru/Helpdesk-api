@@ -135,7 +135,7 @@ module.exports.changeStatus = async (req, res, next) => {
       id: ticketid,
     });
 
-    const data = await logStatusEvents({
+    const data = await insertEventData({
       ticketId: ticketid,
       userId: req.user.id,
       userRole: req.user.role,

@@ -1,7 +1,9 @@
-module.exports.insertEventData = async (...datas) => {
+module.exports.insertEventData = async (datas) => {
+  const { ticketId, userId, userRole, fromStatus, toStatus } = datas;
   const { rows } = await pool.query(
-    "insert into helpdesk_events (ticket_id, actor_id, type ,from_value, to_value) values ($1,$2,'status_changed',$3,$4) returning *",
-    datas,
+    `INSERT INTO ticket_status_events (ticket_id, user_id, user_role, from_status, to_status)
+     VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+    [ticketId, userId, userRole, fromStatus, toStatus],
   );
   return rows[0];
 };

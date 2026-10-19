@@ -34,19 +34,18 @@ module.exports.removeTicket = async (id) => {
   return true;
 };
 module.exports.pickOneById = async (ticketId) => {
-  const { rows } = await pool.query(
-    "select * from helpdesk_tickets where id =$1",
+  const { rows } = pool.query(
+    `SELECT * FROM helpdesk_tickets where id = $1`,
     ticketId,
   );
   return rows[0];
 };
 
 module.exports.updateStatues = async (params) => {
-  const { ticketId, userId, userRole, fromStatus, toStatus } = params;
+  const { status, id } = params;
   const { rows } = await pool.query(
-    `INSERT INTO ticket_status_events (ticket_id, user_id, user_role, from_status, to_status)
-     VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-    [ticketId, userId, userRole, fromStatus, toStatus],
+    `update helpdesk_tickets set status = $1 ,updated_at= now() where id= $2  RETURNING *`,
+    [status, id],
   );
   return rows[0];
 };
