@@ -3,8 +3,6 @@ const { authenticate } = require("../middlewares/auth");
 const authRouter = require("./auth.route");
 const ticketRouter = require("./tickets.routes");
 const adminRouter = require("./admin.route");
-const { writeComment } = require("../models/comments.model");
-const { deleteTicket } = require("../controllers/tickets.controller");
 
 const router = Router();
 
