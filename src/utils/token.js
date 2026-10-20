@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const env = require("../config/env");
 
-function signToken(user) {
+async function signToken(user) {
   return jwt.sign({ sub: user.id, role: user.role }, env.JWT_SECRET, {
     algorithm: "HS256",
     expiresIn: "15m",

@@ -3,9 +3,11 @@ const {
   insertagentfromAdmin,
   findOne,
   deactivate,
+  removeAccount,
+  getAllhelpdeskusers,
 } = require("../models/user.model");
+const { grabAllticketevents } = require("../models/evnt.model");
 const { validationResult } = require("express-validator");
-const { json } = require("express");
 
 module.exports.adminregistration = async (req, res, next) => {
   try {
@@ -50,4 +52,41 @@ module.exports.decativateAccount = async (req, res, next) => {
     const result = await deactivate(email, status);
     res.json({ message: "Staus changed sucusussfully", result });
   } catch (error) {}
+};
+module.exports.deleteAccount = async (rsq, res, next) => {
+  try {
+    const { email } = req.body;
+    const isAdminDeletinself = await findOne(email);
+    if (
+      !isAdminDeletinself ||
+      (isAdminDeletinself.id === req.user.id &&
+        isAdminDeletinself.role === "admin")
+    ) {
+      return res.json({
+        message: "Accout not found or admin sel delation is not allowed",
+      });
+    }
+    await removeAccount(email);
+    res.json({
+      message: `Accoutn with email ${email} have been deleted sucussfully`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.getAllusers = async (re, res, next) => {
+  try {
+    const users = await getAllhelpdeskusers();
+    res.json({ allusers: users });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.getAllticketevents = async (req, res, next) => {
+  try {
+    const allEvents = await grabAllticketevents();
+    res.json(allEvents);
+  } catch (error) {
+    next(error);
+  }
 };

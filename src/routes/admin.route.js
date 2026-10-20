@@ -9,6 +9,9 @@ const {
 const {
   adminregistration,
   decativateAccount,
+  deleteAccount,
+  getAllusers,
+  getAllticketevents,
 } = require("../controllers/admin.controller");
 
 const adminRouter = express.Router();
@@ -23,4 +26,7 @@ adminRouter.post(
   adminregistration,
 );
 adminRouter.post("/:email/deactivate", decativateAccount);
+adminRouter.get("/Allusers", getAllusers);
+adminRouter.get("/ticket_events", getAllticketevents);
+adminRouter.delete("/:email/deleteAccount", deleteAccount);
 module.exports = adminRouter;

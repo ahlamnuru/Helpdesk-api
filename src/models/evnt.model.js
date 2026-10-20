@@ -9,3 +9,7 @@ module.exports.insertEventData = async (datas) => {
   );
   return rows[0];
 };
+module.exports.grabAllticketevents = async () => {
+  const { rows } = await pool.query(` select * from ticket_status`);
+  return rows;
+};
