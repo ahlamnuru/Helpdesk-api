@@ -28,3 +28,13 @@ module.exports.deactivate = async (email, status) => {
   );
   return rows[0];
 };
+module.exports.removeAccount = async (email) => {
+  await pool.query(`delete from helpdesk_users where email = $1`, [email]);
+  return true;
+};
+module.exports.getAllhelpdeskusers = async () => {
+  const { rows } = await pool.query(
+    `select id, fullname , email , role, is_active  ,created_at from helpdesk_users`,
+  );
+  return rows;
+};

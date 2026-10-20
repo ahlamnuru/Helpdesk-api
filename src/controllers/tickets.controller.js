@@ -92,9 +92,15 @@ module.exports.writeComment = async (req, res, next) => {
       return res.json({ message: errorsArray.map((er) => er.msg) });
     }
     const { ticket_id, body } = req.body;
+    const ticket = await pickOneById([ticket_id]);
+    if (!ticket || !canseeTckets(req.user, ticket)) {
+      return res.json({
+        message: "Error the ticket is not found or it doest belog to you ",
+      });
+    }
     const user_id = req.user.id;
-    const ticket = await insertComment([ticket_id, user_id, body]);
-    res.json(ticket);
+    const comment = await insertComment([ticket_id, user_id, body]);
+    res.json(comment);
   } catch (error) {
     next(error);
   }
