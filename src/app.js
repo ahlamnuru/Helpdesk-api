@@ -33,5 +33,8 @@ app.use(
 app.use("/api", routes);
 app.use(notFound);
 app.use(errorHandler);
+app.get("/", (req, tes) => {
+  req.logout({});
+});
 
 module.exports = app;

@@ -9,11 +9,14 @@ const env = {
   JWT_SECRET: process.env.JWT_SECRET,
   SESSION_SECRET: process.env.SESSION_SECRET,
   CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || "http://localhost:3000",
+  REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
 };
 env.isProd = env.NODE_ENV === "production";
 
 if (!env.JWT_SECRET || env.JWT_SECRET.length < 32) {
-  throw new Error("JWT_SECRET is missing or too short (use 32+ characters). Check your .env file.");
+  throw new Error(
+    "JWT_SECRET is missing or too short (use 32+ characters). Check your .env file.",
+  );
 }
 
 module.exports = env;

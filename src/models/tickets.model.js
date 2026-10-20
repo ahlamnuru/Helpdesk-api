@@ -26,7 +26,7 @@ module.exports.assignTicket = async (querydata) => {
     "update helpdesk_tickets set assigned_id = $1 where id =$2 returning title",
     querydata,
   );
-  console.log(rows);
+  // console.log(rows);
   return rows[0];
 };
 module.exports.removeTicket = async (id) => {
@@ -38,7 +38,7 @@ module.exports.pickOneById = async (ticketId) => {
     `SELECT * FROM helpdesk_tickets where id = $1`,
     ticketId,
   );
-  console.log(rows);
+  // console.log(rows);
   return rows[0];
 };
 
